@@ -1,0 +1,142 @@
+[
+  // ─── CODE EXECUTION ────────────────────────────────────────────
+  {
+    "key": "shift+enter",
+    "command": "code-runner.run",
+    "when": "editorTextFocus && !editorReadonly",
+  },
+  {
+    "key": "ctrl+shift+enter",
+    "command": "workbench.action.debug.start",
+    "when": "editorTextFocus",
+  },
+
+  // ─── FILE MANAGEMENT ───────────────────────────────────────────
+  { "key": "ctrl+s", "command": "workbench.action.files.save" },
+  { "key": "ctrl+shift+s", "command": "workbench.action.files.saveAs" },
+  { "key": "ctrl+n", "command": "workbench.action.files.newUntitledFile" },
+  { "key": "ctrl+w", "command": "workbench.action.closeActiveEditor" },
+  { "key": "ctrl+shift+w", "command": "workbench.action.closeAllEditors" },
+  { "key": "ctrl+shift+t", "command": "workbench.action.reopenClosedEditor" },
+
+  // ─── NAVIGATION ────────────────────────────────────────────────
+  { "key": "ctrl+p", "command": "workbench.action.quickOpen" },
+  { "key": "ctrl+shift+e", "command": "workbench.view.explorer" },
+  { "key": "ctrl+shift+f", "command": "workbench.action.findInFiles" },
+  { "key": "ctrl+shift+o", "command": "workbench.action.gotoSymbol" },
+  { "key": "ctrl+b", "command": "workbench.action.toggleSidebarVisibility" },
+  { "key": "ctrl+tab", "command": "workbench.action.nextEditor" },
+  { "key": "ctrl+shift+tab", "command": "workbench.action.previousEditor" },
+  { "key": "alt+left", "command": "workbench.action.navigateBack" },
+  { "key": "alt+right", "command": "workbench.action.navigateForward" },
+
+  // ─── EDITING & INTELLISENSE ────────────────────────────────────
+  { "key": "ctrl+d", "command": "editor.action.addSelectionToNextFindMatch" },
+  { "key": "ctrl+l", "command": "expandLineSelection" },
+  {
+    "key": "alt+up",
+    "command": "editor.action.moveLinesUpAction",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "alt+down",
+    "command": "editor.action.moveLinesDownAction",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "shift+alt+up",
+    "command": "editor.action.copyLinesUpAction",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "shift+alt+down",
+    "command": "editor.action.copyLinesDownAction",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "ctrl+/",
+    "command": "editor.action.commentLine",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "ctrl+shift+k",
+    "command": "editor.action.deleteLines",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "ctrl+shift+\\",
+    "command": "editor.action.jumpToBracket",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "ctrl+shift+l",
+    "command": "editor.action.selectHighlights",
+    "when": "editorFocus",
+  },
+
+  // Manual IntelliSense Triggers (Crucial for your UI setup)
+  {
+    "key": "ctrl+space",
+    "command": "editor.action.triggerSuggest",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "insert",
+    "command": "editor.action.triggerSuggest",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "ctrl+k ctrl+i",
+    "command": "editor.action.showHover",
+    "when": "editorTextFocus",
+  },
+  {
+    "key": "ctrl+shift+space",
+    "command": "editor.action.triggerParameterHints",
+    "when": "editorTextFocus",
+  },
+
+  // ─── TERMINAL ─────────────────────────────────────────────────
+  { "key": "ctrl+`", "command": "workbench.action.terminal.toggleTerminal" },
+  { "key": "ctrl+shift+`", "command": "workbench.action.terminal.new" },
+  {
+    "key": "ctrl+shift+c",
+    "command": "workbench.action.terminal.copySelection",
+    "when": "terminalFocus && terminalHasTextSelection",
+  },
+  {
+    "key": "ctrl+shift+v",
+    "command": "workbench.action.terminal.paste",
+    "when": "terminalFocus",
+  },
+  {
+    "key": "ctrl+shift+up",
+    "command": "workbench.action.terminal.scrollUp",
+    "when": "terminalFocus",
+  },
+  {
+    "key": "ctrl+shift+down",
+    "command": "workbench.action.terminal.scrollDown",
+    "when": "terminalFocus",
+  },
+
+  // ─── VIEW / UI ────────────────────────────────────────────────
+  { "key": "ctrl+\\", "command": "workbench.action.splitEditor" },
+  { "key": "ctrl+1", "command": "workbench.action.focusFirstEditorGroup" },
+  { "key": "ctrl+2", "command": "workbench.action.focusSecondEditorGroup" },
+  { "key": "ctrl+k z", "command": "workbench.action.toggleZenMode" },
+  {
+    "key": "ctrl+shift+b",
+    "command": "workbench.action.toggleStatusbarVisibility",
+  },
+
+  // ─── SEARCH & REPLACE ─────────────────────────────────────────
+  { "key": "ctrl+f", "command": "actions.find" },
+  { "key": "ctrl+h", "command": "editor.action.startFindReplaceAction" },
+
+  // ─── MISC / UTILITIES ─────────────────────────────────────────
+  { "key": "ctrl+shift+p", "command": "workbench.action.showCommands" },
+  { "key": "ctrl+shift+m", "command": "workbench.actions.view.problems" },
+  { "key": "ctrl+shift+r", "command": "workbench.action.reloadWindow" },
+  { "key": "ctrl+alt+backspace", "command": "workbench.action.closeWindow" },
+]
