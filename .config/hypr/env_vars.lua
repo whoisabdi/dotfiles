@@ -1,0 +1,2 @@
+-- ~/.config/hypr/env_vars.lua
+-- Handled by ~/.config/uwsm/env
