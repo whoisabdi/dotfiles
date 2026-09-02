@@ -1,0 +1,6 @@
+[terminal]
+vt = 1
+
+[default_session]
+command = "sh -c 'sh /var/tmp/tty-colors.sh && tuigreet --cmd \"uwsm start hyprland-uwsm.desktop\" --config /etc/tuigreet/config.toml'"
+user = "greeter"

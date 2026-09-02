@@ -1,0 +1,45 @@
+[display]
+show_time = true
+greeting = "Welcome to the Dark Side."
+align_greeting = "center"
+issue = false
+
+[layout]
+width = 48
+window_padding = 0
+container_padding = 1
+prompt_padding = 1
+
+[layout.widgets]
+time_position = "default"
+status_position = "default"
+
+[remember]
+username = true
+session = true
+user_session = true
+
+[secret]
+mode = "characters"
+characters = "*"
+
+[background]
+kind = "none"
+
+[keybindings]
+command = 2
+sessions = 3
+background = 4
+power = 12
+
+[theme]
+border = "blue"
+text = "white"
+time = "blue"
+container = "black"
+title = "blue"
+greet = "blue"
+prompt = "magenta"
+input = "yellow"
+action = "cyan"
+button = "blue"
