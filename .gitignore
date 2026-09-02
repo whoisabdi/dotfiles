@@ -1,0 +1,26 @@
+# --- Matugen Generated Color Files ---
+.config/hypr/colors.lua
+.config/hypr/colors.conf
+.config/gtk-3.0/colors.css
+.config/gtk-4.0/colors.css
+.config/qt5ct/colors/matugen-qt5ct.conf
+.config/qt6ct/colors/matugen-qt6ct.conf
+.config/qt5ct/qss/rounded-menu.qss
+.config/qt6ct/qss/rounded-menu.qss
+.config/btop/themes/matugen.theme
+.config/spicetify/Themes/Default/color.ini
+.config/kitty/colors.conf
+.local/state/quickshell/generated/colors.json
+.local/share/color-schemes/
+.local/share/themes/
+.themes/
+
+# --- Quickshell LSP & Caches ---
+.config/quickshell/.qmlls.ini
+.cache/
+.local/state/
+.bash_history
+.viminfo
+.lesshst
+
+

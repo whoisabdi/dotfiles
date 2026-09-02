@@ -1,0 +1,77 @@
+# "$schema" = 'https://starship.rs/config-schema.json'
+add_newline = false
+
+format = """\
+  󰣇 $directory\
+  $git_branch$git_status\
+  $character\
+"""
+
+right_format = """\
+$cmd_duration\
+$nodejs\
+$python\
+$rust\
+$golang\
+$status\
+"""
+
+continuation_prompt = '▶▶ '
+
+[directory]
+disabled = false
+format = "[$path](bold cyan) "
+truncate_to_repo = true
+truncation_length = 3
+truncation_symbol = "…/"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+vicmd_symbol = "[❮](bold yellow)"
+
+[git_branch]
+format = "[$symbol$branch](bold #769ff0) "
+symbol = " "
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+style = "bold #a0a9cb"
+ahead = '⇡${count}'
+behind = '⇣${count}'
+diverged = '⇕⇡${ahead_count}⇣${behind_count}'
+conflicted = '=${count}'
+untracked = '?${count}'
+modified = '!${count}'
+staged = '+${count}'
+renamed = '»${count}'
+deleted = '✘${count}'
+
+[cmd_duration]
+min_time = 2_000
+format = "[$duration](dimmed yellow) "
+
+[nodejs]
+format = "[$symbol($version )](bold green)"
+symbol = "󰎙 "
+detect_files = ["package.json"]
+detect_folders = ["node_modules"]
+
+[python]
+format = '[$symbol$virtualenv]($style) '
+symbol = " "
+style = "bold yellow"
+
+[rust]
+format = "[$symbol($version )](bold red)"
+symbol = " "
+
+[golang]
+format = "[$symbol($version )](bold cyan)"
+symbol = " "
+
+[status]
+disabled = false
+format = "[$symbol$status]($style)"
+symbol = "✘ "
+style = "bold red"
