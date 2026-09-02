@@ -1,0 +1,21 @@
+#!/bin/sh
+# 0-7: Standard Colors
+echo -en "\e]P0{{colors.surface.default.hex_stripped}}"             # Black (Background)
+echo -en "\e]P1{{colors.error.default.hex_stripped}}"               # Red
+echo -en "\e]P2{{colors.primary.default.hex_stripped}}"             # Green
+echo -en "\e]P3{{colors.secondary.default.hex_stripped}}"           # Yellow
+echo -en "\e]P4{{colors.tertiary.default.hex_stripped}}"            # Blue
+echo -en "\e]P5{{colors.primary_container.default.hex_stripped}}"   # Magenta
+echo -en "\e]P6{{colors.secondary_container.default.hex_stripped}}" # Cyan
+echo -en "\e]P7{{colors.on_surface.default.hex_stripped}}"          # White
+
+# 8-F: Bright Colors (Mapped to variants)
+echo -en "\e]P8{{colors.surface_variant.default.hex_stripped}}"     # Bright Black
+echo -en "\e]P9{{colors.error.default.hex_stripped}}"               # Bright Red
+echo -en "\e]PA{{colors.primary.default.hex_stripped}}"             # Bright Green
+echo -en "\e]PB{{colors.secondary.default.hex_stripped}}"           # Bright Yellow
+echo -en "\e]PC{{colors.tertiary.default.hex_stripped}}"            # Bright Blue
+echo -en "\e]PD{{colors.primary_container.default.hex_stripped}}"   # Bright Magenta
+echo -en "\e]PE{{colors.secondary_container.default.hex_stripped}}" # Bright Cyan
+echo -en "\e]PF{{colors.on_surface_variant.default.hex_stripped}}"  # Bright White
+clear
