@@ -29,8 +29,14 @@ Rectangle {
     Process {
         id: toggleProc
         // Pauses hypridle (Caffeine ON) or resumes it (Caffeine OFF)
-        command: ["sh", "-c", "if ps -o state= -C hypridle | grep -q 'T'; then killall -CONT hypridle; else killall -STOP hypridle; fi"]
-        onExited: stateProc.running = true
+        command: ["sh", "-c", "if ps -o state= -C hypridle | grep -q 'T'; then killall -CONT hypridle 2>/dev/null || uwsm app -- hypridle; else if pidof hypridle >/dev/null 2>&1; then killall -STOP hypridle; fi; fi"]
+        onExited: checkTimer.restart()
+    }
+
+    Timer {
+        id: checkTimer
+        interval: 150
+        onTriggered: stateProc.running = true
     }
 
     onVisibleChanged: if (visible) stateProc.running = true

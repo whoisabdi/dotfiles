@@ -5,6 +5,7 @@ local alt = "ALT"
 local ctrlShift = "CTRL + SHIFT"
 local altShift = "ALT + SHIFT"
 local mainModShift = "SUPER + SHIFT"
+local mainModCtrl = "SUPER + CTRL"
 
 local editor = "code"
 local terminal = "kitty"
@@ -13,8 +14,25 @@ local reload_shell = "pkill quickshell && uwsm app -- quickshell"
 local browser = "google-chrome-stable"
 local sysmon = "kitty --class btop -e btop"
 
+-- Helper for smooth active window resizing (works for both floating & tiled windows)
+local function resize_active(dx, dy)
+    local w = hl.get_active_window()
+    if not w then return end
+    if w.floating then
+        local new_w = math.max(120, w.size.x + dx)
+        local new_h = math.max(80, w.size.y + dy)
+        hl.dispatch(hl.dsp.window.resize({ x = new_w, y = new_h }))
+    else
+        local ratio = (dx ~= 0) and (dx > 0 and 0.04 or -0.04) or (dy > 0 and 0.04 or -0.04)
+        hl.dispatch(hl.dsp.exec_raw("splitratio", tostring(ratio)))
+    end
+end
+
 -- Basic Binds
 hl.bind(alt .. " + F4", hl.dsp.window.close())
+hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+hl.bind(mainMod .. " + V", hl.dsp.window.float())
+hl.bind(mainMod .. " + P", hl.dsp.window.pin())
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(editor))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
@@ -40,6 +58,24 @@ hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "l" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "r" }))
 hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "u" }))
 hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "d" }))
+
+-- Move / Swap Windows
+hl.bind(mainModShift .. " + left", hl.dsp.window.swap({ direction = "l" }))
+hl.bind(mainModShift .. " + right", hl.dsp.window.swap({ direction = "r" }))
+hl.bind(mainModShift .. " + up", hl.dsp.window.swap({ direction = "u" }))
+hl.bind(mainModShift .. " + down", hl.dsp.window.swap({ direction = "d" }))
+
+-- Resize Active Window (Smooth repeating resize for floating & tiled windows)
+hl.bind(mainModCtrl .. " + left", function() resize_active(-30, 0) end, { repeating = true })
+hl.bind(mainModCtrl .. " + right", function() resize_active(30, 0) end, { repeating = true })
+hl.bind(mainModCtrl .. " + up", function() resize_active(0, -30) end, { repeating = true })
+hl.bind(mainModCtrl .. " + down", function() resize_active(0, 30) end, { repeating = true })
+
+-- Vim-style Resize (HJKL)
+hl.bind(mainModCtrl .. " + H", function() resize_active(-30, 0) end, { repeating = true })
+hl.bind(mainModCtrl .. " + L", function() resize_active(30, 0) end, { repeating = true })
+hl.bind(mainModCtrl .. " + K", function() resize_active(0, -30) end, { repeating = true })
+hl.bind(mainModCtrl .. " + J", function() resize_active(0, 30) end, { repeating = true })
 
 -- Workspaces
 for i = 1, 9 do
