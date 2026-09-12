@@ -176,6 +176,42 @@ ScrollView {
 
         Process { id: btopProc; command: ["kitty", "--class", "btop", "-e", "btop"] }
         Process { id: fastfetchProc; command: ["kitty", "--hold", "-e", "fastfetch"] }
+        Process { id: autoCpuProc; command: ["auto-cpufreq-gtk"] }
+
+        // Auto-cpufreq
+        Rectangle {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 58
+            radius: 12
+            color: Colors.md3.surface_container
+            border.color: Colors.md3.outline_variant
+            border.width: 1
+
+            MouseArea {
+                anchors.fill: parent
+                cursorShape: Qt.PointingHandCursor
+                onClicked: { rootApp.visible = false; autoCpuProc.running = true }
+            }
+
+            RowLayout {
+                anchors.fill: parent
+                anchors.margins: 14
+                spacing: 12
+
+                Item {
+                    Layout.preferredWidth: 28; Layout.preferredHeight: 28
+                    QsText { anchors.centerIn: parent; text: "󰓅"; font.pixelSize: 22; color: Colors.md3.primary }
+                }
+
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    spacing: 2
+                    QsText { text: "CPU Frequency & Governor (auto-cpufreq)"; font.pixelSize: 14; font.bold: true; color: Colors.md3.on_surface; elide: Text.ElideRight; Layout.fillWidth: true }
+                    QsText { text: "Automatic CPU speed, turbo mode, and battery optimization daemon"; font.pixelSize: 11; color: Colors.md3.on_surface_variant; elide: Text.ElideRight; Layout.fillWidth: true }
+                }
+                QsText { text: "󰅂"; font.pixelSize: 16; color: Colors.md3.on_surface_variant }
+            }
+        }
 
         // Btop
         Rectangle {

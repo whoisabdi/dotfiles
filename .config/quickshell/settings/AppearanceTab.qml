@@ -187,95 +187,11 @@ ScrollView {
 
             QsText { text: "Advanced Theming & Fonts"; font.pixelSize: 15; font.bold: true; color: Colors.md3.primary }
 
+            Process { id: nwgProc; command: ["nwg-look"] }
             Process { id: qt5ctProc; command: ["qt5ct"] }
             Process { id: qt6ctProc; command: ["qt6ct"] }
-            Process { id: nwgProc; command: ["nwg-look"] }
 
-            // 1. Qt5 Configuration (qt5ct)
-            Rectangle {
-                Layout.fillWidth: true; Layout.preferredHeight: 72; radius: 16
-                color: Colors.md3.surface_container
-                border.color: Colors.md3.outline_variant; border.width: 1
-
-                MouseArea {
-                    anchors.fill: parent; cursorShape: Qt.PointingHandCursor
-                    onClicked: { rootApp.visible = false; qt5ctProc.running = true }
-                }
-
-                RowLayout {
-                    anchors.fill: parent; anchors.margins: 16; spacing: 16
-
-                    Rectangle {
-                        Layout.preferredWidth: 40; Layout.preferredHeight: 40
-                        radius: 12
-                        color: Colors.md3.tertiary_container
-
-                        QsText {
-                            anchors.centerIn: parent
-                            text: "ぎ"
-                            font.pixelSize: 20
-                            color: Colors.md3.on_tertiary_container
-                        }
-                    }
-
-                    ColumnLayout {
-                        Layout.fillWidth: true; spacing: 4
-                        QsText { text: "Qt5 Appearance Settings"; font.pixelSize: 15; font.bold: true; color: Colors.md3.on_surface; elide: Text.ElideRight; Layout.fillWidth: true }
-                        QsText { text: "Manage Qt5 palette overrides, icon styles, and dialog fonts"; font.pixelSize: 12; color: Qt.alpha(Colors.md3.on_surface_variant, 0.8); elide: Text.ElideRight; Layout.fillWidth: true }
-                    }
-
-                    Rectangle {
-                        Layout.preferredWidth: 28; Layout.preferredHeight: 28
-                        radius: 14
-                        color: Colors.md3.surface_variant
-                        QsText { anchors.centerIn: parent; text: "󰅂"; font.pixelSize: 16; color: Colors.md3.on_surface_variant }
-                    }
-                }
-            }
-
-            // 2. Qt6 Configuration (qt6ct)
-            Rectangle {
-                Layout.fillWidth: true; Layout.preferredHeight: 72; radius: 16
-                color: Colors.md3.surface_container
-                border.color: Colors.md3.outline_variant; border.width: 1
-
-                MouseArea {
-                    anchors.fill: parent; cursorShape: Qt.PointingHandCursor
-                    onClicked: { rootApp.visible = false; qt6ctProc.running = true }
-                }
-
-                RowLayout {
-                    anchors.fill: parent; anchors.margins: 16; spacing: 16
-
-                    Rectangle {
-                        Layout.preferredWidth: 40; Layout.preferredHeight: 40
-                        radius: 12
-                        color: Colors.md3.tertiary_container
-
-                        QsText {
-                            anchors.centerIn: parent
-                            text: "ぎ"
-                            font.pixelSize: 20
-                            color: Colors.md3.on_tertiary_container
-                        }
-                    }
-
-                    ColumnLayout {
-                        Layout.fillWidth: true; spacing: 4
-                        QsText { text: "Qt6 Appearance Settings"; font.pixelSize: 15; font.bold: true; color: Colors.md3.on_surface; elide: Text.ElideRight; Layout.fillWidth: true }
-                        QsText { text: "Manage Qt6 palette overrides, icon styles, and dialog fonts"; font.pixelSize: 12; color: Qt.alpha(Colors.md3.on_surface_variant, 0.8); elide: Text.ElideRight; Layout.fillWidth: true }
-                    }
-
-                    Rectangle {
-                        Layout.preferredWidth: 28; Layout.preferredHeight: 28
-                        radius: 14
-                        color: Colors.md3.surface_variant
-                        QsText { anchors.centerIn: parent; text: "󰅂"; font.pixelSize: 16; color: Colors.md3.on_surface_variant }
-                    }
-                }
-            }
-
-            // 3. GTK Theme & Cursor Editor (nwg-look)
+            // 1. GTK Theme & Cursor Editor (nwg-look)
             Rectangle {
                 Layout.fillWidth: true; Layout.preferredHeight: 72; radius: 16
                 color: Colors.md3.surface_container
@@ -296,7 +212,7 @@ ScrollView {
 
                         QsText {
                             anchors.centerIn: parent
-                            text: "序"
+                            text: "󰏘"
                             font.pixelSize: 20
                             color: Colors.md3.on_secondary_container
                         }
@@ -306,6 +222,90 @@ ScrollView {
                         Layout.fillWidth: true; spacing: 4
                         QsText { text: "GTK Appearance Settings"; font.pixelSize: 15; font.bold: true; color: Colors.md3.on_surface; elide: Text.ElideRight; Layout.fillWidth: true }
                         QsText { text: "Change GTK 3/4 themes, cursor packs, icon sets, and system fonts"; font.pixelSize: 12; color: Qt.alpha(Colors.md3.on_surface_variant, 0.8); elide: Text.ElideRight; Layout.fillWidth: true }
+                    }
+
+                    Rectangle {
+                        Layout.preferredWidth: 28; Layout.preferredHeight: 28
+                        radius: 14
+                        color: Colors.md3.surface_variant
+                        QsText { anchors.centerIn: parent; text: "󰅂"; font.pixelSize: 16; color: Colors.md3.on_surface_variant }
+                    }
+                }
+            }
+
+            // 2. Qt5 Configuration (qt5ct)
+            Rectangle {
+                Layout.fillWidth: true; Layout.preferredHeight: 72; radius: 16
+                color: Colors.md3.surface_container
+                border.color: Colors.md3.outline_variant; border.width: 1
+
+                MouseArea {
+                    anchors.fill: parent; cursorShape: Qt.PointingHandCursor
+                    onClicked: { rootApp.visible = false; qt5ctProc.running = true }
+                }
+
+                RowLayout {
+                    anchors.fill: parent; anchors.margins: 16; spacing: 16
+
+                    Rectangle {
+                        Layout.preferredWidth: 40; Layout.preferredHeight: 40
+                        radius: 12
+                        color: Colors.md3.tertiary_container
+
+                        QsText {
+                            anchors.centerIn: parent
+                            text: "󰕰"
+                            font.pixelSize: 20
+                            color: Colors.md3.on_tertiary_container
+                        }
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true; spacing: 4
+                        QsText { text: "Qt5 Appearance Settings"; font.pixelSize: 15; font.bold: true; color: Colors.md3.on_surface; elide: Text.ElideRight; Layout.fillWidth: true }
+                        QsText { text: "Manage Qt5 palette overrides, icon styles, and dialog fonts"; font.pixelSize: 12; color: Qt.alpha(Colors.md3.on_surface_variant, 0.8); elide: Text.ElideRight; Layout.fillWidth: true }
+                    }
+
+                    Rectangle {
+                        Layout.preferredWidth: 28; Layout.preferredHeight: 28
+                        radius: 14
+                        color: Colors.md3.surface_variant
+                        QsText { anchors.centerIn: parent; text: "󰅂"; font.pixelSize: 16; color: Colors.md3.on_surface_variant }
+                    }
+                }
+            }
+
+            // 3. Qt6 Configuration (qt6ct)
+            Rectangle {
+                Layout.fillWidth: true; Layout.preferredHeight: 72; radius: 16
+                color: Colors.md3.surface_container
+                border.color: Colors.md3.outline_variant; border.width: 1
+
+                MouseArea {
+                    anchors.fill: parent; cursorShape: Qt.PointingHandCursor
+                    onClicked: { rootApp.visible = false; qt6ctProc.running = true }
+                }
+
+                RowLayout {
+                    anchors.fill: parent; anchors.margins: 16; spacing: 16
+
+                    Rectangle {
+                        Layout.preferredWidth: 40; Layout.preferredHeight: 40
+                        radius: 12
+                        color: Colors.md3.tertiary_container
+
+                        QsText {
+                            anchors.centerIn: parent
+                            text: "󰕰"
+                            font.pixelSize: 20
+                            color: Colors.md3.on_tertiary_container
+                        }
+                    }
+
+                    ColumnLayout {
+                        Layout.fillWidth: true; spacing: 4
+                        QsText { text: "Qt6 Appearance Settings"; font.pixelSize: 15; font.bold: true; color: Colors.md3.on_surface; elide: Text.ElideRight; Layout.fillWidth: true }
+                        QsText { text: "Manage Qt6 palette overrides, icon styles, and dialog fonts"; font.pixelSize: 12; color: Qt.alpha(Colors.md3.on_surface_variant, 0.8); elide: Text.ElideRight; Layout.fillWidth: true }
                     }
 
                     Rectangle {

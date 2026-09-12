@@ -89,7 +89,6 @@ PanelWindow {
                     SettingsTabButton { title: "Network"; icon: "󰤨"; isActive: window.currentTab === "network"; onClicked: window.currentTab = "network" }
                     SettingsTabButton { title: "Appearance"; icon: "󰏘"; isActive: window.currentTab === "appearance"; onClicked: window.currentTab = "appearance" }
                     SettingsTabButton { title: "Audio"; icon: "󰕾"; isActive: window.currentTab === "audio"; onClicked: window.currentTab = "audio" }
-                    SettingsTabButton { title: "Compositor"; icon: "󱂬"; isActive: window.currentTab === "compositor"; onClicked: window.currentTab = "compositor" }
                     SettingsTabButton { title: "System"; icon: "󰌢"; isActive: window.currentTab === "system"; onClicked: window.currentTab = "system" }
 
                     Item { Layout.fillHeight: true }
@@ -109,14 +108,12 @@ PanelWindow {
                     currentIndex: {
                         if (window.currentTab === "appearance") return 1;
                         if (window.currentTab === "audio") return 2;
-                        if (window.currentTab === "compositor") return 3;
-                        if (window.currentTab === "system") return 4;
+                        if (window.currentTab === "system") return 3;
                         return 0;
                     }
                     NetworkTab { rootApp: window }
                     AppearanceTab { rootApp: window }
                     AudioTab { rootApp: window }
-                    CompositorTab { rootApp: window }
                     SystemTab { rootApp: window }
                 }
             }

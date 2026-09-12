@@ -32,7 +32,8 @@ hl.window_rule({ match = { class = "^(org\\.gnome\\.Nautilus|nautilus)$" }, tag 
 hl.window_rule({ match = { class = "^(code-oss|[Cc]ode|code(-insiders)?-url-handler)$" }, tag = "+projects" })
 
 -- Settings & Control Centers
-hl.window_rule({ match = { class = "^(qt5ct|qt6ct|nwg-look|nm-applet|nm-connection-editor|hyprpolkitagent|pavucontrol|org\\.pulseaudio\\.pavucontrol)$" }, tag = "+settings" })
+hl.window_rule({ match = { class = "^(qt5ct|qt6ct|nwg-look|nm-applet|nm-connection-editor|hyprpolkitagent|pavucontrol|org\\.pulseaudio\\.pavucontrol|auto-cpufreq|auto-cpufreq-gtk|app\\.py)$" }, tag = "+settings" })
+hl.window_rule({ match = { title = ".*auto-cpufreq.*" }, tag = "+settings" })
 
 -- Portals & Authentication Agents
 hl.window_rule({ match = { class = "^(xdg-desktop-portal-gtk|org\\.freedesktop\\.impl\\.portal\\.desktop\\.gtk|org\\.freedesktop\\.impl\\.portal\\.desktop\\.hyprland|.*polkit.*)$" }, tag = "+dialog" })
@@ -148,6 +149,22 @@ hl.window_rule({
     center = true,
     size = {"(monitor_w * 0.85)", "(monitor_h * 0.85)"},
     opacity = "1.0 1.0"
+})
+
+-- auto-cpufreq Optimizer Popup
+hl.window_rule({
+    match = { class = "^(auto-cpufreq|auto-cpufreq-gtk|app\\.py)$" },
+    float = true,
+    center = true,
+    size = {"(monitor_w * 0.55)", "(monitor_h * 0.65)"},
+    opacity = "0.95 0.95"
+})
+hl.window_rule({
+    match = { title = ".*auto-cpufreq.*" },
+    float = true,
+    center = true,
+    size = {"(monitor_w * 0.55)", "(monitor_h * 0.65)"},
+    opacity = "0.95 0.95"
 })
 
 -- Picture-in-Picture (PiP)

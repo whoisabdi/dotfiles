@@ -341,7 +341,7 @@ PanelWindow {
                 Item { Layout.fillWidth: true }
 
                 QsText {
-                    text: "↵ Launch  •  Esc Close"
+                    text: "↵ Launch  •  ⎋ Close"
                     font.pixelSize: 10
                     color: Colors.md3.on_surface_variant
                 }
