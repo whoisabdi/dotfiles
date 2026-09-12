@@ -916,14 +916,15 @@ PanelWindow {
                 }
 
                 Rectangle {
-                    implicitWidth: btSettText.implicitWidth + 14
-                    implicitHeight: 24
-                    radius: 12
+                    implicitWidth: btSettRow.implicitWidth + 20
+                    implicitHeight: 28
+                    radius: 14
                     color: btSettMouse.containsMouse ? Colors.md3.surface_container_highest : Colors.md3.surface_container
                     border.color: Colors.md3.outline_variant
                     border.width: 1
 
                     RowLayout {
+                        id: btSettRow
                         anchors.centerIn: parent
                         spacing: 4
                         QsText { text: "󰒓"; font.pixelSize: 11; color: Colors.md3.primary }

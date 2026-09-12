@@ -6,6 +6,7 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Io
 import Quickshell.Services.Mpris
+import Quickshell.Widgets
 import "../globals"
 import "../osd"
 import "../quicksettings"
@@ -31,7 +32,7 @@ PanelWindow {
         }
     }
 
-    readonly property var activeHistory: globalNotifications ? globalNotifications.activeNotifications : []
+    readonly property var activeHistory: globalNotifications ? globalNotifications.historyNotifications : []
     property string uptimeStr: "Up..."
 
     Process {
@@ -198,15 +199,13 @@ PanelWindow {
                 }
             }
 
-            // 2. Quick Settings 2x2 Grid
+            // 2. Quick Settings Grid
             GridLayout {
                 columns: 2
                 columnSpacing: 10
                 rowSpacing: 10
                 Layout.fillWidth: true
 
-                WifiTile {}
-                BluetoothTile {}
                 NightLightTile {}
                 CaffeineTile {}
             }
@@ -270,12 +269,31 @@ PanelWindow {
                     model: window.activeHistory
 
                     delegate: Rectangle {
+                        id: cardDelegate
                         width: ListView.view.width
                         height: 64
                         radius: 12
-                        color: Colors.md3.surface_container
-                        border.color: Colors.md3.outline_variant
+                        color: cardMouse.containsMouse ? Colors.md3.surface_container_high : Colors.md3.surface_container
+                        border.color: cardMouse.containsMouse ? Colors.md3.outline : Colors.md3.outline_variant
                         border.width: 1
+
+                        Behavior on color { ColorAnimation { duration: 150 } }
+
+                        MouseArea {
+                            id: cardMouse
+                            anchors.fill: parent
+                            hoverEnabled: true
+                            cursorShape: Qt.PointingHandCursor
+                            onClicked: {
+                                if (modelData.actions && modelData.actions.length > 0) {
+                                    try {
+                                        let act = modelData.actions.find(a => a.id === "default") || modelData.actions[0];
+                                        if (act) modelData.invokeAction(act.id);
+                                    } catch (e) {}
+                                }
+                                if (globalNotifications) globalNotifications.dismissNotification(modelData);
+                            }
+                        }
 
                         RowLayout {
                             anchors.fill: parent
@@ -284,7 +302,14 @@ PanelWindow {
 
                             Rectangle {
                                 Layout.preferredWidth: 32; Layout.preferredHeight: 32; radius: 8; color: Colors.md3.surface_variant
-                                QsText { anchors.centerIn: parent; text: "󰎔"; font.pixelSize: 16; color: Colors.md3.primary }
+                                clip: true
+                                IconImage {
+                                    anchors.fill: parent
+                                    anchors.margins: 4
+                                    source: (modelData.appIcon && modelData.appIcon.length > 0)
+                                        ? modelData.appIcon
+                                        : Quickshell.iconPath(modelData.appName || "dialog-information", "application-x-executable")
+                                }
                             }
 
                             ColumnLayout {
@@ -295,8 +320,9 @@ PanelWindow {
 
                             MouseArea {
                                 implicitWidth: 24; implicitHeight: 24; cursorShape: Qt.PointingHandCursor
+                                hoverEnabled: true
                                 onClicked: if (globalNotifications) globalNotifications.dismissNotification(modelData)
-                                QsText { anchors.centerIn: parent; text: "󰅖"; font.pixelSize: 14; color: Colors.md3.error }
+                                QsText { anchors.centerIn: parent; text: "󰅖"; font.pixelSize: 14; color: parent.containsMouse ? Colors.md3.error : Qt.alpha(Colors.md3.error, 0.7) }
                             }
                         }
                     }

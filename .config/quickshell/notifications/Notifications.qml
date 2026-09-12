@@ -14,15 +14,33 @@ PanelWindow {
     anchors { top: true; right: true }
     margins { top: 12; right: 12 }
 
-    property var activeNotifications: []
+    property var popupNotifications: []
+    property var historyNotifications: []
+    property alias activeNotifications: window.popupNotifications
 
-    function dismissNotification(n) {
+    function dismissPopup(n) {
         if (!n) return;
-        let list = window.activeNotifications.slice();
+        let list = window.popupNotifications.slice();
         let idx = list.indexOf(n);
         if (idx !== -1) {
             list.splice(idx, 1);
-            window.activeNotifications = list;
+            window.popupNotifications = list;
+        }
+    }
+
+    function dismissNotification(n) {
+        if (!n) return;
+        let pList = window.popupNotifications.slice();
+        let pIdx = pList.indexOf(n);
+        if (pIdx !== -1) {
+            pList.splice(pIdx, 1);
+            window.popupNotifications = pList;
+        }
+        let hList = window.historyNotifications.slice();
+        let hIdx = hList.indexOf(n);
+        if (hIdx !== -1) {
+            hList.splice(hIdx, 1);
+            window.historyNotifications = hList;
         }
         try {
             if (typeof n.dismiss === "function") {
@@ -32,9 +50,10 @@ PanelWindow {
     }
 
     function dismissAll() {
-        let list = window.activeNotifications.slice();
-        window.activeNotifications = [];
-        for (let n of list) {
+        let all = window.popupNotifications.concat(window.historyNotifications);
+        window.popupNotifications = [];
+        window.historyNotifications = [];
+        for (let n of all) {
             if (n) {
                 try {
                     if (typeof n.dismiss === "function") {
@@ -45,7 +64,7 @@ PanelWindow {
         }
     }
 
-    visible: activeNotifications.length > 0
+    visible: popupNotifications.length > 0
     implicitWidth: 320
     implicitHeight: mainColumn.implicitHeight
 
@@ -63,16 +82,33 @@ PanelWindow {
 
         onNotification: (notification) => {
             notification.tracked = true;
-            let newList = window.activeNotifications.slice();
-            newList.unshift(notification);
-            window.activeNotifications = newList;
+
+            let pList = window.popupNotifications.slice();
+            pList.unshift(notification);
+            window.popupNotifications = pList;
+
+            let hList = window.historyNotifications.slice();
+            hList.unshift(notification);
+            if (hList.length > 50) {
+                let discarded = hList.pop();
+                if (discarded && window.popupNotifications.indexOf(discarded) === -1) {
+                    try { discarded.dismiss(); } catch (e) {}
+                }
+            }
+            window.historyNotifications = hList;
 
             notification.closed.connect(() => {
-                let currentList = window.activeNotifications.slice();
-                let index = currentList.indexOf(notification);
-                if (index !== -1) {
-                    currentList.splice(index, 1);
-                    window.activeNotifications = currentList;
+                let currentPopups = window.popupNotifications.slice();
+                let pIndex = currentPopups.indexOf(notification);
+                if (pIndex !== -1) {
+                    currentPopups.splice(pIndex, 1);
+                    window.popupNotifications = currentPopups;
+                }
+                let currentHistory = window.historyNotifications.slice();
+                let hIndex = currentHistory.indexOf(notification);
+                if (hIndex !== -1) {
+                    currentHistory.splice(hIndex, 1);
+                    window.historyNotifications = currentHistory;
                 }
             });
         }
@@ -85,7 +121,7 @@ PanelWindow {
 
         // Notification Cards
         Repeater {
-            model: window.activeNotifications
+            model: window.popupNotifications
 
             delegate: MouseArea {
                 id: notifArea
@@ -121,7 +157,7 @@ PanelWindow {
                         : (modelData.urgency === NotificationUrgency.Low ? 4000 : 6000)
                     running: modelData.urgency !== NotificationUrgency.Critical && !notifArea.containsMouse
                     repeat: false
-                    onTriggered: window.dismissNotification(modelData)
+                    onTriggered: window.dismissPopup(modelData)
                 }
 
                 onClicked: window.dismissNotification(modelData)
@@ -277,7 +313,10 @@ PanelWindow {
                                         anchors.fill: parent
                                         hoverEnabled: true
                                         cursorShape: Qt.PointingHandCursor
-                                        onClicked: modelData.invokeAction(modelData.actions[index].id)
+                                        onClicked: {
+                                            modelData.invokeAction(modelData.actions[index].id);
+                                            window.dismissNotification(modelData);
+                                        }
                                     }
 
                                     QsText {
@@ -288,8 +327,8 @@ PanelWindow {
                                         font.bold: true
                                         color: actionMouse.containsMouse
                                             ? (notifArea.isCritical ? Colors.md3.on_error : Colors.md3.on_primary)
-                                            : notifArea.onContainerColor
-                                    }
+                                             : notifArea.onContainerColor
+                                     }
                                 }
                             }
                         }
@@ -300,7 +339,7 @@ PanelWindow {
 
         // Right-Aligned Clear All Button Below Notifications
         MouseArea {
-            visible: window.activeNotifications.length > 1
+            visible: window.popupNotifications.length > 1
             Layout.alignment: Qt.AlignRight
             implicitWidth: 88
             implicitHeight: 24

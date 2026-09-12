@@ -775,14 +775,15 @@ PanelWindow {
                 }
 
                 Rectangle {
-                    implicitWidth: settText.implicitWidth + 14
-                    implicitHeight: 24
-                    radius: 12
+                    implicitWidth: settRow.implicitWidth + 20
+                    implicitHeight: 28
+                    radius: 14
                     color: settMouse.containsMouse ? Colors.md3.surface_container_highest : Colors.md3.surface_container
                     border.color: Colors.md3.outline_variant
                     border.width: 1
 
                     RowLayout {
+                        id: settRow
                         anchors.centerIn: parent
                         spacing: 4
                         QsText { text: "󰒓"; font.pixelSize: 11; color: Colors.md3.primary }
