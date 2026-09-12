@@ -178,7 +178,7 @@ ScrollView {
         Process { id: fastfetchProc; command: ["kitty", "--hold", "-e", "fastfetch"] }
         Process { id: autoCpuProc; command: ["auto-cpufreq-gtk"] }
 
-        // Auto-cpufreq
+        // 1. Fastfetch (Full System Report)
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 58
@@ -190,7 +190,7 @@ ScrollView {
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
-                onClicked: { rootApp.visible = false; autoCpuProc.running = true }
+                onClicked: { rootApp.visible = false; fastfetchProc.running = true }
             }
 
             RowLayout {
@@ -200,20 +200,20 @@ ScrollView {
 
                 Item {
                     Layout.preferredWidth: 28; Layout.preferredHeight: 28
-                    QsText { anchors.centerIn: parent; text: "󰓅"; font.pixelSize: 22; color: Colors.md3.primary }
+                    QsText { anchors.centerIn: parent; text: "󰣇"; font.pixelSize: 22; color: Colors.md3.primary }
                 }
 
                 ColumnLayout {
                     Layout.fillWidth: true
                     spacing: 2
-                    QsText { text: "CPU Frequency & Governor (auto-cpufreq)"; font.pixelSize: 14; font.bold: true; color: Colors.md3.on_surface; elide: Text.ElideRight; Layout.fillWidth: true }
-                    QsText { text: "Automatic CPU speed, turbo mode, and battery optimization daemon"; font.pixelSize: 11; color: Colors.md3.on_surface_variant; elide: Text.ElideRight; Layout.fillWidth: true }
+                    QsText { text: "Full System Report (Fastfetch)"; font.pixelSize: 14; font.bold: true; color: Colors.md3.on_surface; elide: Text.ElideRight; Layout.fillWidth: true }
+                    QsText { text: "Display detailed driver, package, resolution, and session info"; font.pixelSize: 11; color: Colors.md3.on_surface_variant; elide: Text.ElideRight; Layout.fillWidth: true }
                 }
                 QsText { text: "󰅂"; font.pixelSize: 16; color: Colors.md3.on_surface_variant }
             }
         }
 
-        // Btop
+        // 2. Btop (Task & Hardware Monitor)
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 58
@@ -248,7 +248,7 @@ ScrollView {
             }
         }
 
-        // Fastfetch
+        // 3. auto-cpufreq (CPU Frequency & Governor)
         Rectangle {
             Layout.fillWidth: true
             Layout.preferredHeight: 58
@@ -260,7 +260,7 @@ ScrollView {
             MouseArea {
                 anchors.fill: parent
                 cursorShape: Qt.PointingHandCursor
-                onClicked: { rootApp.visible = false; fastfetchProc.running = true }
+                onClicked: { rootApp.visible = false; autoCpuProc.running = true }
             }
 
             RowLayout {
@@ -270,14 +270,14 @@ ScrollView {
 
                 Item {
                     Layout.preferredWidth: 28; Layout.preferredHeight: 28
-                    QsText { anchors.centerIn: parent; text: "󰣇"; font.pixelSize: 22; color: Colors.md3.primary }
+                    QsText { anchors.centerIn: parent; text: "󰓅"; font.pixelSize: 22; color: Colors.md3.primary }
                 }
 
                 ColumnLayout {
                     Layout.fillWidth: true
                     spacing: 2
-                    QsText { text: "Full System Report (Fastfetch)"; font.pixelSize: 14; font.bold: true; color: Colors.md3.on_surface; elide: Text.ElideRight; Layout.fillWidth: true }
-                    QsText { text: "Display detailed driver, package, resolution, and session info"; font.pixelSize: 11; color: Colors.md3.on_surface_variant; elide: Text.ElideRight; Layout.fillWidth: true }
+                    QsText { text: "CPU Frequency & Governor (auto-cpufreq)"; font.pixelSize: 14; font.bold: true; color: Colors.md3.on_surface; elide: Text.ElideRight; Layout.fillWidth: true }
+                    QsText { text: "Automatic CPU speed, turbo mode, and battery optimization daemon"; font.pixelSize: 11; color: Colors.md3.on_surface_variant; elide: Text.ElideRight; Layout.fillWidth: true }
                 }
                 QsText { text: "󰅂"; font.pixelSize: 16; color: Colors.md3.on_surface_variant }
             }

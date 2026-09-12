@@ -1,0 +1,68 @@
+#!/usr/bin/env python3
+import sys
+import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk, GLib
+
+from auto_cpufreq.gui.app import ToolWindow
+
+GLib.set_prgname("auto-cpufreq-gtk")
+
+orig_main = ToolWindow.main
+def responsive_main(self):
+    orig_main(self)
+    self.set_resizable(True)
+    children = self.get_children()
+    if children and isinstance(children[0], Gtk.Box):
+        hbox = children[0]
+        
+        # Detach children safely
+        for widget in [self.systemstats, self.vbox_right, self.menu]:
+            p = widget.get_parent()
+            if p:
+                p.remove(widget)
+        self.remove(hbox)
+        
+        notebook = Gtk.Notebook()
+        notebook.set_tab_pos(Gtk.PositionType.TOP)
+        
+        # Tab 1: Governor & Controls
+        scroll1 = Gtk.ScrolledWindow()
+        scroll1.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        scroll1.set_margin_start(10)
+        scroll1.set_margin_end(10)
+        scroll1.set_margin_top(10)
+        scroll1.set_margin_bottom(10)
+        scroll1.add(self.vbox_right)
+        notebook.append_page(scroll1, Gtk.Label(label="  Controls & Governor  "))
+        
+        # Tab 2: System Stats
+        scroll2 = Gtk.ScrolledWindow()
+        scroll2.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scroll2.set_margin_start(10)
+        scroll2.set_margin_end(10)
+        scroll2.set_margin_top(10)
+        scroll2.set_margin_bottom(10)
+        scroll2.add(self.systemstats)
+        notebook.append_page(scroll2, Gtk.Label(label="  System Stats & Cores  "))
+        
+        main_vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
+        top_bar = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        top_bar.pack_end(self.menu, False, False, 6)
+        main_vbox.pack_start(top_bar, False, False, 0)
+        main_vbox.pack_start(notebook, True, True, 0)
+        
+        self.add(main_vbox)
+        self.set_default_size(600, 480)
+
+ToolWindow.main = responsive_main
+
+def main():
+    win = ToolWindow()
+    win.connect("destroy", Gtk.main_quit)
+    win.show_all()
+    win.handle_update()
+    Gtk.main()
+
+if __name__ == "__main__":
+    main()
