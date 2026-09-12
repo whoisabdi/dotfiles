@@ -29,7 +29,8 @@ PanelWindow {
             anchors.bottom: parent.bottom
             spacing: 8
 
-            ArchWidget {}
+            // System Resources Pill (CPU & RAM)
+            SysStatsWidget {}
 
             // Workspace Pill
             Pill {
@@ -85,6 +86,9 @@ PanelWindow {
                 BatteryWidget {}
                 ClockWidget {}
             }
+
+            // Quick Settings Toggle Button
+            ArchWidget {}
         }
     }
 }
