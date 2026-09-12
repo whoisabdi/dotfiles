@@ -79,7 +79,7 @@ PanelWindow {
     Rectangle {
         width: 420
         height: Math.min(740, parent.height - 70)
-        anchors.top: parent.top; anchors.left: parent.left; anchors.topMargin: 12; anchors.leftMargin: 12
+        anchors.top: parent.top; anchors.right: parent.right; anchors.topMargin: 12; anchors.rightMargin: 12
         radius: 24
         color: Colors.md3.surface_container_high
         border.color: Colors.md3.outline_variant

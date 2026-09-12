@@ -30,9 +30,7 @@ end
 
 -- Basic Binds
 hl.bind(alt .. " + F4", hl.dsp.window.close())
-hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + V", hl.dsp.window.float())
-hl.bind(mainMod .. " + P", hl.dsp.window.pin())
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(editor))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))

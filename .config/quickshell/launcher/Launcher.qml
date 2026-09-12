@@ -75,7 +75,7 @@ PanelWindow {
         id: launcherModal
         anchors.centerIn: parent
         width: 360
-        height: 520
+        height: 471
         color: Colors.md3.surface_container_high
         radius: 28
         border.color: Colors.md3.outline_variant
