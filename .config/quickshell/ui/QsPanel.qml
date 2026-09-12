@@ -199,7 +199,7 @@ PanelWindow {
                 }
             }
 
-            // 2. Quick Settings Grid
+            // 2. Quick Settings 2x2 Grid
             GridLayout {
                 columns: 2
                 columnSpacing: 10
@@ -208,6 +208,8 @@ PanelWindow {
 
                 NightLightTile {}
                 CaffeineTile {}
+                DndTile {}
+                GameModeTile {}
             }
 
             // 3. Dual Hardware Sliders (Volume & Brightness)

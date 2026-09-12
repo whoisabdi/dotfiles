@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Io
 import Quickshell.Services.Notifications
 import Quickshell.Widgets
 import "../globals"
@@ -17,6 +18,19 @@ PanelWindow {
     property var popupNotifications: []
     property var historyNotifications: []
     property alias activeNotifications: window.popupNotifications
+    property bool dndEnabled: false
+
+    IpcHandler {
+        target: "notifications"
+        function toggleDnd(): void {
+            window.dndEnabled = !window.dndEnabled;
+            if (window.dndEnabled) window.popupNotifications = [];
+        }
+        function setDnd(enable: bool): void {
+            window.dndEnabled = enable;
+            if (window.dndEnabled) window.popupNotifications = [];
+        }
+    }
 
     function dismissPopup(n) {
         if (!n) return;
@@ -83,9 +97,12 @@ PanelWindow {
         onNotification: (notification) => {
             notification.tracked = true;
 
-            let pList = window.popupNotifications.slice();
-            pList.unshift(notification);
-            window.popupNotifications = pList;
+            // Only show toast popups on screen if DND is disabled, or urgency is Critical
+            if (!window.dndEnabled || notification.urgency === NotificationUrgency.Critical) {
+                let pList = window.popupNotifications.slice();
+                pList.unshift(notification);
+                window.popupNotifications = pList;
+            }
 
             let hList = window.historyNotifications.slice();
             hList.unshift(notification);
