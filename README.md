@@ -3,7 +3,7 @@
 ### Pacman
 
 ```sh
-sudo pacman -Syu archlinux-xdg-menu ark awww bluez bluez-utils brightnessctl btop celluloid cliphist evince fastfetch feh git github-cli gnome-keyring grim hypridle hyprlock hyprpicker hyprpolkitagent hyprsunset imagemagick matugen nautilus nautilus-python nwg-look pavucontrol pipewire-alsa pipewire-pulse playerctl qt5ct qt6ct quickshell reflector satty slurp starship sushi udiskie ufw unzip vim wl-clip-persist xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xorg-xhost
+sudo pacman -Syu android-tools archlinux-xdg-menu ark awww bluez bluez-utils brightnessctl btop celluloid cliphist evince fastfetch feh git github-cli gnome-keyring grim gvfs-mtp gvfs-gphoto2 hypridle hyprlock hyprpicker hyprpolkitagent hyprsunset imagemagick libmtp matugen nautilus nautilus-python nwg-look pavucontrol pipewire-alsa pipewire-pulse playerctl qt5ct qt6ct quickshell reflector satty slurp starship sushi udiskie ufw unzip vim wl-clip-persist xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xorg-xhost
 ```
 
 ### Yay
