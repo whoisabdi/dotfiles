@@ -15,6 +15,7 @@ PanelWindow {
     WlrLayershell.layer: WlrLayer.Overlay
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.OnDemand
     WlrLayershell.namespace: "powermenu"
+    exclusionMode: ExclusionMode.Ignore
 
     color: Qt.rgba(0, 0, 0, 0.65)
     visible: false
