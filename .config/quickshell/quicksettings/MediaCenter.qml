@@ -44,6 +44,18 @@ PanelWindow {
         return s;
     }
 
+    function cleanTitle(p) {
+        if (!p || !p.trackTitle) return "No Media Playing";
+        return p.trackTitle.trim().replace(/\s*[-–—|]\s*YouTube$/i, "").trim();
+    }
+
+    function cleanArtist(p) {
+        if (!p || !p.trackArtist) return "";
+        let a = p.trackArtist.trim().replace(/\s*[-–—]\s*Topic$/i, "").trim();
+        if (/^(youtube|google chrome|chromium|web browser)$/i.test(a)) return "";
+        return a;
+    }
+
     MouseArea {
         id: bgMouse
         anchors.fill: parent
@@ -180,7 +192,7 @@ PanelWindow {
                     spacing: 3
 
                     QsText {
-                        text: window.player ? (window.player.trackTitle || "No Media Playing") : "No Media Playing"
+                        text: window.player ? window.cleanTitle(window.player) : "No Media Playing"
                         font.pixelSize: 16
                         font.bold: true
                         color: Colors.md3.on_surface
@@ -190,12 +202,13 @@ PanelWindow {
                     }
 
                     QsText {
-                        text: window.player ? (window.player.trackArtist || "Unknown Artist") : ""
+                        text: window.player ? window.cleanArtist(window.player) : ""
                         font.pixelSize: 13
                         color: Colors.md3.on_surface_variant
                         elide: Text.ElideRight
                         horizontalAlignment: Text.AlignHCenter
                         Layout.fillWidth: true
+                        visible: text.length > 0
                     }
                 }
 

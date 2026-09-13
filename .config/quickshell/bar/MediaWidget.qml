@@ -31,6 +31,44 @@ Pill {
         }
     }
 
+    // Smart cleaning & prioritization of media metadata (especially YouTube / Chrome)
+    function getDisplayMediaText(player) {
+        if (!player) return "Music";
+
+        let title = (player.trackTitle || "").trim();
+        let artist = (player.trackArtist || "").trim();
+
+        // 1. Strip YouTube web page title suffixes
+        title = title.replace(/\s*[-–—|]\s*YouTube$/i, "").trim();
+
+        // 2. Clean YouTube Music "- Topic" suffixes from artist
+        artist = artist.replace(/\s*[-–—]\s*Topic$/i, "").trim();
+
+        // 3. Filter out generic browser / platform names as artists
+        if (/^(youtube|google chrome|chromium|web browser)$/i.test(artist)) {
+            artist = "";
+        }
+
+        // 4. Fallback if title is missing
+        if (!title) {
+            return artist || "Playing";
+        }
+
+        // 5. If no artist, or if title already contains the artist (e.g. "Artist - Song")
+        if (!artist) {
+            return title;
+        }
+
+        let lowerTitle = title.toLowerCase();
+        let lowerArtist = artist.toLowerCase();
+        if (lowerTitle.startsWith(lowerArtist) || lowerTitle.includes(" - " + lowerArtist) || lowerTitle.includes(lowerArtist + " - ")) {
+            return title;
+        }
+
+        // 6. Title is ALWAYS prioritized first so video/song names are never cut off
+        return `${title} • ${artist}`;
+    }
+
     RowLayout {
         spacing: 8
 
@@ -41,16 +79,13 @@ Pill {
         }
 
         Item {
-            Layout.maximumWidth: 220
-            Layout.preferredWidth: Math.min(trackText.implicitWidth, 220)
+            Layout.preferredWidth: trackText.implicitWidth
             implicitHeight: trackText.implicitHeight
             clip: true
 
             QsText {
                 id: trackText
-                text: root.activeMedia 
-                      ? (root.activeMedia.trackArtist ? `${root.activeMedia.trackArtist} • ${root.activeMedia.trackTitle}` : (root.activeMedia.trackTitle || "Playing"))
-                      : "Music"
+                text: root.getDisplayMediaText(root.activeMedia)
                 font.italic: !root.activeMedia
                 elide: Text.ElideRight
             }
