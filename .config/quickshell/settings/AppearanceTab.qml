@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Effects
 import Quickshell.Io
 import "../globals"
 import "../ui"
@@ -119,7 +120,20 @@ ScrollView {
                             property string realPath: paths[0] || ""
                             property string thumbPath: paths[1] || ""
 
+                            Item {
+                                id: maskItem
+                                anchors.fill: parent
+                                layer.enabled: true
+                                visible: false
+                                Rectangle {
+                                    anchors.fill: parent
+                                    radius: 16
+                                    color: "black"
+                                }
+                            }
+
                             Image {
+                                id: wallImg
                                 anchors.fill: parent
                                 source: wallCard.thumbPath ? ("file://" + wallCard.thumbPath) : (wallCard.realPath ? ("file://" + wallCard.realPath) : "")
                                 fillMode: Image.PreserveAspectCrop
@@ -127,6 +141,14 @@ ScrollView {
                                 cache: true
                                 sourceSize: Qt.size(240, 150)
                                 mipmap: true
+                                visible: false
+                            }
+
+                            MultiEffect {
+                                anchors.fill: parent
+                                source: wallImg
+                                maskEnabled: true
+                                maskSource: maskItem
                             }
 
                             Rectangle {

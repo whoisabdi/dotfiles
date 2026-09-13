@@ -22,8 +22,8 @@ PanelWindow {
     color: "transparent"
     visible: false
 
-    function toggle() { 
-        visible = !visible 
+    function toggle() {
+        visible = !visible
         if (visible) {
             if (typeof globalWifiPicker !== "undefined" && globalWifiPicker) globalWifiPicker.visible = false
             if (typeof globalBluetoothPicker !== "undefined" && globalBluetoothPicker) globalBluetoothPicker.visible = false
@@ -77,10 +77,14 @@ PanelWindow {
     }
 
     Rectangle {
-        width: 420
-        height: Math.min(740, parent.height - 70)
-        anchors.top: parent.top; anchors.right: parent.right; anchors.topMargin: 12; anchors.rightMargin: 12
-        radius: 24
+        width: 380
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.topMargin: 12
+        anchors.rightMargin: 12
+        anchors.bottomMargin: 12
+        radius: 20
         color: Colors.md3.surface_container_high
         border.color: Colors.md3.outline_variant
         border.width: 1
