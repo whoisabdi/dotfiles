@@ -53,3 +53,11 @@ output_path = '~/.local/state/quickshell/generated/colors.json'
 [templates.tty]
 input_path = "~/.config/matugen/templates/tty.sh.template"
 output_path = "/var/tmp/tty-colors.sh"
+
+[templates.vscode-raw]
+input_path = './templates/vscode-colors'
+output_path = '~/.cache/matugen/vscode-colors'
+
+[templates.vscode-json]
+input_path = './templates/vscode-colors.json'
+output_path = '~/.cache/matugen/vscode-colors.json'

@@ -26,8 +26,6 @@
   "workbench.editor.revealIfOpen": true,
   "workbench.editor.showTabs": "multiple",
   "workbench.editor.tabSizing": "fit",
-
-  "workbench.colorTheme": "Matugen",
   "workbench.iconTheme": "material-icon-theme",
   "material-icon-theme.folders.theme": "specific",
   "workbench.colorCustomizations": {
@@ -123,4 +121,5 @@
   "extensions.autoCheckUpdates": false,
   "extensions.autoUpdate": "off",
   "extensions.ignoreRecommendations": true,
+  "workbench.colorTheme": "Matugen Bordered",
 }
