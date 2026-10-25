@@ -28,7 +28,8 @@ PanelWindow {
     exclusiveZone: hasFullscreen ? 0 : implicitHeight
 
     mask: Region {
-        item: root.hasFullscreen ? null : contentArea
+        width: root.width
+        height: root.exclusiveZone
     }
 
     Rectangle {
@@ -69,13 +70,12 @@ PanelWindow {
             // Network Pill
             NetworkWidget {}
 
-            // Hardware & Input Status Pill (Backlight, Volume, Keyboard)
+            // Hardware Status Pill (Backlight & Volume)
             Pill {
                 spacing: 12
                 paddingHorizontal: 12
                 BacklightWidget {}
                 VolumeWidget {}
-                KeyboardLayoutWidget {}
             }
 
             // Power & Time Pill (Battery & Clock)

@@ -57,7 +57,6 @@ PanelWindow {
             window.historyNotifications = hList;
         }
         try {
-            n.tracked = false;
             if (typeof n.dismiss === "function") {
                 n.dismiss();
             }
@@ -71,7 +70,6 @@ PanelWindow {
         for (let n of all) {
             if (n) {
                 try {
-                    n.tracked = false;
                     if (typeof n.dismiss === "function") {
                         n.dismiss();
                     }

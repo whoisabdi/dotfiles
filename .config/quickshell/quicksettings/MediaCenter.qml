@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Io
 import Quickshell.Wayland
 import Quickshell.Services.Mpris
 import Quickshell.Hyprland
@@ -35,35 +34,6 @@ PanelWindow {
         let title = (p.trackTitle || "").trim();
         let artist = (p.trackArtist || "").trim();
         return (title.length > 0 || artist.length > 0);
-    }
-
-    Instantiator {
-        model: Mpris.players
-        delegate: Connections {
-            required property MprisPlayer modelData
-            target: modelData
-            function onPlaybackStateChanged() {
-                // Trigger reactive re-evaluation of current player
-            }
-        }
-    }
-
-    IpcHandler {
-        target: "mpris"
-        function togglePlaying(): void {
-            if (window.player && window.player.canTogglePlaying) window.player.togglePlaying()
-        }
-        function pauseAll(): void {
-            for (let p of Mpris.players.values) {
-                if (p.canPause) p.pause()
-            }
-        }
-        function next(): void {
-            if (window.player && window.player.canGoNext) window.player.next()
-        }
-        function previous(): void {
-            if (window.player && window.player.canGoPrevious) window.player.previous()
-        }
     }
 
     readonly property var validPlayers: {
