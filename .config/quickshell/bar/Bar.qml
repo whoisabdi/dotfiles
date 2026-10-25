@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
+import Quickshell.Services.Mpris
 import "../globals"
 import "../ui"
 
@@ -41,16 +42,22 @@ PanelWindow {
         color: "transparent"
         opacity: 1 - root.compactState
 
-        // 1. Center Section (Media Player)
+        // 1. Center Section (Window Title & Media Player)
         RowLayout {
             id: centerSection
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.bottom: parent.bottom
+            spacing: 8
             z: 10
+
+            WindowTitle {
+                id: windowTitle
+            }
 
             MediaWidget {
                 id: mediaWidget
+                visible: activeMedia !== null && (activeMedia.trackTitle !== "" || activeMedia.playbackState === MprisPlaybackState.Playing)
             }
         }
 

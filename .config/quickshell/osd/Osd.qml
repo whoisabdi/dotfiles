@@ -56,6 +56,40 @@ PanelWindow {
         objects: [window.sink, window.source].filter(Boolean)
     }
 
+    property bool ready: false
+    Component.onCompleted: startupTimer.start()
+    Timer {
+        id: startupTimer
+        interval: 1500
+        onTriggered: window.ready = true
+    }
+
+    // Reactive Pipewire volume and mute listener (matching official dotfiles architecture)
+    Connections {
+        target: window.sink?.audio ?? null
+        function onVolumeChanged() {
+            if (!window.ready || !window.sink?.ready) return
+            let v = window.sink.audio.volume
+            let m = window.sink.audio.muted
+            window.showOsd(m ? "󰝟" : (v > 0.5 ? "󰕾" : "󰖀"), v, m)
+        }
+        function onMutedChanged() {
+            if (!window.ready || !window.sink?.ready) return
+            let v = window.sink.audio.volume
+            let m = window.sink.audio.muted
+            window.showOsd(m ? "󰝟" : (v > 0.5 ? "󰕾" : "󰖀"), v, m)
+        }
+    }
+
+    // Reactive Brightness listener
+    Connections {
+        target: (typeof globalBrightnessDaemon !== "undefined" && globalBrightnessDaemon) ? globalBrightnessDaemon : null
+        function onBrightnessChanged() {
+            if (!window.ready) return
+            window.showOsd("󰃠", globalBrightnessDaemon.brightness / 100.0, false)
+        }
+    }
+
     IpcHandler {
         target: "osd"
 

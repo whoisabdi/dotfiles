@@ -10,7 +10,7 @@ RowLayout {
     id: root
     spacing: 4
 
-    readonly property HyprlandMonitor monitor: Hyprland.monitorFor(QsWindow.window?.screen)
+    readonly property HyprlandMonitor monitor: Hyprland.focusedMonitor
     readonly property int focusedId: monitor?.activeWorkspace?.id ?? (Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.id : 1)
 
     Repeater {

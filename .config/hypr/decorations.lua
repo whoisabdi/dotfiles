@@ -43,6 +43,7 @@ hl.config({
             xray = true,
             new_optimizations = true,
             popups = true, -- Forces context menus and tooltips to blur
+            input_methods = true,
         }
     },
 
@@ -59,5 +60,7 @@ hl.config({
         disable_hyprland_logo = true,
         enable_swallow = true,
         swallow_regex = "(foot|kitty|alacritty|Alacritty|ghostty|Ghostty|org.wezfurlong.wezterm)",
+        mouse_move_enables_dpms = true,
+        key_press_enables_dpms = true,
     }
 })

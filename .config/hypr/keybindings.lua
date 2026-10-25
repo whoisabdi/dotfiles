@@ -10,7 +10,7 @@ local mainModCtrl = "SUPER + CTRL"
 local editor = "codium"
 local terminal = "kitty"
 local fileManager = "nautilus"
-local reload_shell = "pkill quickshell && uwsm app -- quickshell"
+local reload_shell = "pkill quickshell && uwsm app -- env QS_NO_RELOAD_POPUP=1 QML_DISABLE_DISK_CACHE=1 quickshell"
 local browser = "google-chrome-stable"
 local sysmon = "kitty --class btop -e btop"
 
@@ -37,7 +37,9 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(reload_shell))
 hl.bind(ctrlShift .. " + Escape", hl.dsp.exec_cmd(sysmon))
-hl.bind(mainMod .. " + Escape", hl.dsp.window.fullscreen())
+hl.bind(mainMod .. " + Escape", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+hl.bind(mainModShift .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
+hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("uwsm stop"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(altShift .. " + P", hl.dsp.exec_cmd("hyprpicker -an"))
