@@ -46,6 +46,7 @@ hl.bind(altShift .. " + P", hl.dsp.exec_cmd("hyprpicker -an"))
 hl.bind(alt .. " + Escape", hl.dsp.exec_cmd("quickshell ipc call powermenu toggle"))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("quickshell ipc call qspanel toggle"))
 hl.bind(mainMod .. " + I", hl.dsp.exec_cmd("quickshell ipc call settings toggle"))
+hl.bind(mainMod .. " + slash", hl.dsp.exec_cmd("quickshell ipc call shortcuts toggle"))
 hl.bind(ctrlShift .. " + W", hl.dsp.exec_cmd("quickshell ipc call wallpaper randomize"))
 hl.bind(mainMod .. " + SUPER_L", hl.dsp.exec_cmd("quickshell ipc call launcher toggle"), { release = true })
 

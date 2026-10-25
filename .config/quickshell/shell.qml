@@ -10,6 +10,7 @@ import "osd"
 import "notifications"
 import "quicksettings"
 import "settings"
+import "shortcuts"
 import "monitorRounding"
 
 Scope {
@@ -46,6 +47,8 @@ Scope {
     MediaCenter { id: globalMediaCenter }
     QsPanel { id: globalQsPanel }
     SettingsApp { id: globalSettingsApp }
+    ShortcutsPanel { id: globalShortcutsPanel }
+    CalendarPopup { id: globalCalendarPopup }
     WifiPicker { id: globalWifiPicker }
     BluetoothPicker { id: globalBluetoothPicker }
     BatteryDaemon { id: globalBatteryDaemon }

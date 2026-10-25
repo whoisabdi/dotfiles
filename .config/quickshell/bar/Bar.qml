@@ -42,22 +42,16 @@ PanelWindow {
         color: "transparent"
         opacity: 1 - root.compactState
 
-        // 1. Center Section (Window Title & Media Player)
+        // 1. Center Section (Media Player)
         RowLayout {
             id: centerSection
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            spacing: 8
             z: 10
-
-            WindowTitle {
-                id: windowTitle
-            }
 
             MediaWidget {
                 id: mediaWidget
-                visible: activeMedia !== null && (activeMedia.trackTitle !== "" || activeMedia.playbackState === MprisPlaybackState.Playing)
             }
         }
 
@@ -76,12 +70,13 @@ PanelWindow {
             // Network Pill
             NetworkWidget {}
 
-            // Hardware Status Pill (Backlight & Volume)
+            // Hardware & Input Status Pill (Backlight, Volume, Keyboard)
             Pill {
                 spacing: 12
                 paddingHorizontal: 12
                 BacklightWidget {}
                 VolumeWidget {}
+                KeyboardLayoutWidget {}
             }
 
             // Power & Time Pill (Battery & Clock)
