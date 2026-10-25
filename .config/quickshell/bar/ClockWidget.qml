@@ -16,17 +16,8 @@ RowLayout {
 
         MouseArea {
             anchors.fill: parent
-            acceptedButtons: Qt.LeftButton | Qt.RightButton
+            onClicked: altFormat = !altFormat
             cursorShape: Qt.PointingHandCursor
-            onClicked: (mouse) => {
-                if (mouse.button === Qt.RightButton) {
-                    altFormat = !altFormat
-                } else {
-                    if (typeof globalCalendarPopup !== "undefined" && globalCalendarPopup) {
-                        globalCalendarPopup.toggle()
-                    }
-                }
-            }
         }
     }
 }

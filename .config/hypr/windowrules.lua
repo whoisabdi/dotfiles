@@ -218,7 +218,6 @@ hl.layer_rule({ name = "wifipicker-blur", match = { namespace = "wifipicker" }, 
 hl.layer_rule({ name = "btpicker-blur", match = { namespace = "btpicker" }, blur = true, ignore_alpha = 0.41 })
 hl.layer_rule({ name = "settingsapp-blur", match = { namespace = "settingsapp" }, blur = true, ignore_alpha = 0.41 })
 hl.layer_rule({ name = "mediacenter-blur", match = { namespace = "mediacenter" }, blur = true, ignore_alpha = 0.41 })
-hl.layer_rule({ name = "calendar-blur", match = { namespace = "calendar" }, blur = true, ignore_alpha = 0.41 })
 hl.layer_rule({ name = "notifications-blur", match = { namespace = "notifications" }, blur = true, ignore_alpha = 0.41, no_anim = true })
 hl.layer_rule({ name = "monitor-rounding", match = { namespace = "monitor-rounding" }, no_anim = true })
 
