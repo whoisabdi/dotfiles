@@ -7,6 +7,7 @@ import Quickshell.Wayland
 import Quickshell.Io
 import Quickshell.Services.Mpris
 import Quickshell.Widgets
+import Quickshell.Hyprland
 import "../globals"
 import "../osd"
 import "../quicksettings"
@@ -21,6 +22,12 @@ PanelWindow {
     anchors { top: true; bottom: true; left: true; right: true }
     color: "transparent"
     visible: false
+
+    HyprlandFocusGrab {
+        active: window.visible
+        windows: [window]
+        onCleared: window.visible = false
+    }
 
     function toggle() {
         visible = !visible

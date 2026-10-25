@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
+import Quickshell.Hyprland
 import "../globals"
 import "../ui"
 
@@ -19,6 +20,12 @@ PanelWindow {
 
     color: Qt.rgba(0, 0, 0, 0.65)
     visible: false
+
+    HyprlandFocusGrab {
+        active: window.visible
+        windows: [window]
+        onCleared: window.visible = false
+    }
 
     property string uptimeStr: "Up..."
     property int selectedIndex: 0

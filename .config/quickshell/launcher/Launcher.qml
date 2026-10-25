@@ -5,6 +5,7 @@ import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
 import Quickshell.Widgets
+import Quickshell.Hyprland
 import "../globals"
 import "../ui"
 
@@ -20,6 +21,12 @@ PanelWindow {
 
     color: "transparent"
     visible: false
+
+    HyprlandFocusGrab {
+        active: window.visible
+        windows: [window]
+        onCleared: window.visible = false
+    }
 
     property var allApps: []
     property var filteredApps: []

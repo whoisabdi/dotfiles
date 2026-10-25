@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
 import Quickshell.Services.Mpris
+import Quickshell.Hyprland
 import "../globals"
 import "../ui"
 
@@ -17,14 +18,40 @@ PanelWindow {
     color: "transparent"
     visible: false
 
+    HyprlandFocusGrab {
+        active: window.visible
+        windows: [window]
+        onCleared: window.visible = false
+    }
+
     function toggle() { 
         visible = !visible 
         if (visible) bgMouse.forceActiveFocus()
     }
 
-    property var players: Mpris.players.values
+    function isValidPlayer(p) {
+        if (!p) return false;
+        let title = (p.trackTitle || "").trim();
+        let artist = (p.trackArtist || "").trim();
+        return (title.length > 0 || artist.length > 0);
+    }
+
+    readonly property var validPlayers: {
+        return Mpris.players.values.filter(isValidPlayer);
+    }
+
     property int currentIndex: 0
-    property var player: players.length > 0 ? players[Math.min(currentIndex, Math.max(0, players.length - 1))] : null
+
+    readonly property var player: {
+        if (validPlayers.length === 0) return null;
+        if (currentIndex < validPlayers.length && validPlayers[currentIndex].playbackState === MprisPlaybackState.Playing) {
+            return validPlayers[currentIndex];
+        }
+        for (let i = 0; i < validPlayers.length; i++) {
+            if (validPlayers[i].playbackState === MprisPlaybackState.Playing) return validPlayers[i];
+        }
+        return validPlayers[Math.min(currentIndex, validPlayers.length - 1)];
+    }
 
     function getArtUrl(p) {
         if (!p) return "";
@@ -164,9 +191,9 @@ PanelWindow {
 
                     RowLayout {
                         spacing: 6
-                        visible: window.players.length > 1
+                        visible: window.validPlayers.length > 1
                         Repeater {
-                            model: window.players.length
+                            model: window.validPlayers.length
                             delegate: Rectangle {
                                 width: 8
                                 height: 8

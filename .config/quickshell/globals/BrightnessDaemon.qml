@@ -6,6 +6,34 @@ Item {
 
     property int brightness: 100
     property bool isReady: false
+    property bool hasDdcutil: false
+    property var ddcBuses: []
+
+    Process {
+        id: checkDdcProc
+        command: ["which", "ddcutil"]
+        onExited: (exitCode) => {
+            root.hasDdcutil = (exitCode === 0);
+            if (root.hasDdcutil) detectDdcProc.running = true;
+        }
+    }
+
+    Process {
+        id: detectDdcProc
+        command: ["sh", "-c", "ddcutil detect --brief 2>/dev/null | grep -E '^Display' | awk '{print $2}'"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                let lines = text.trim().split("\n").filter(l => l.length > 0);
+                root.ddcBuses = lines;
+            }
+        }
+    }
+
+    Process {
+        id: setDdcProc
+        property int targetPct: 50
+        command: ["sh", "-c", "for b in " + root.ddcBuses.join(" ") + "; do ddcutil setvcp 10 " + targetPct + " --display $b 2>/dev/null & done"]
+    }
 
     Process {
         id: readProc
@@ -36,6 +64,10 @@ Item {
         root.brightness = val
         setProc.targetPct = val
         setProc.running = true
+        if (root.hasDdcutil && root.ddcBuses.length > 0) {
+            setDdcProc.targetPct = val
+            setDdcProc.running = true
+        }
     }
 
     function adjust(delta) {
@@ -65,5 +97,8 @@ Item {
         onTriggered: readProc.running = true
     }
 
-    Component.onCompleted: readProc.running = true
+    Component.onCompleted: {
+        readProc.running = true;
+        checkDdcProc.running = true;
+    }
 }

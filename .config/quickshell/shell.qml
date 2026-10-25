@@ -10,6 +10,7 @@ import "osd"
 import "notifications"
 import "quicksettings"
 import "settings"
+import "monitorRounding"
 
 Scope {
     Item {
@@ -22,6 +23,16 @@ Scope {
         model: Quickshell.screens
         delegate: Component {
             Bar {
+                required property var modelData
+                screen: modelData
+            }
+        }
+    }
+
+    Variants {
+        model: Quickshell.screens
+        delegate: Component {
+            RoundedMonitorElement {
                 required property var modelData
                 screen: modelData
             }
