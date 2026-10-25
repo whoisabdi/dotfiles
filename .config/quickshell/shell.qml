@@ -46,6 +46,7 @@ Scope {
     MediaCenter { id: globalMediaCenter }
     QsPanel { id: globalQsPanel }
     SettingsApp { id: globalSettingsApp }
+    CalendarPopup { id: globalCalendarPopup }
     WifiPicker { id: globalWifiPicker }
     BluetoothPicker { id: globalBluetoothPicker }
     BatteryDaemon { id: globalBatteryDaemon }
