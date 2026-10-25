@@ -209,7 +209,7 @@ hl.window_rule({
 -- =============================================================================
 -- LAYER RULES
 -- =============================================================================
-hl.layer_rule({ name = "bar-blur", match = { namespace = "bar" }, blur = true, ignore_alpha = 0.41 })
+hl.layer_rule({ name = "bar-blur", match = { namespace = "bar" }, blur = true, blur_popups = true })
 hl.layer_rule({ name = "launcher-blur", match = { namespace = "launcher" }, blur = true, ignore_alpha = 0.41 })
 hl.layer_rule({ name = "powermenu-blur", match = { namespace = "powermenu" }, blur = true, ignore_alpha = 0.41 })
 hl.layer_rule({ name = "qspanel-blur", match = { namespace = "qspanel" }, blur = true, ignore_alpha = 0.41 })

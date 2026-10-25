@@ -12,7 +12,7 @@ Rectangle {
     implicitWidth: trayLayout.implicitWidth + 24
     implicitHeight: 36
     radius: 18
-    color: Qt.alpha(Colors.md3.surface_container, 0.70)
+    color: Qt.alpha(Colors.md3.surface_container, 0.65)
     border.color: Qt.alpha(Colors.md3.outline_variant, 0.5)
     border.width: 1
 

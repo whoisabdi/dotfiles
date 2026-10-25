@@ -21,8 +21,8 @@ Rectangle {
     radius: height / 2
 
     color: active 
-           ? Colors.md3.primary 
-           : (clickable && isHovered ? Qt.alpha(Colors.md3.surface_container_high, 0.85) : Qt.alpha(Colors.md3.surface_container, 0.70))
+           ? Qt.alpha(Colors.md3.primary, 0.90) 
+           : (clickable && isHovered ? Qt.alpha(Colors.md3.surface_container_high, 0.80) : Qt.alpha(Colors.md3.surface_container, 0.65))
     border.color: active ? Colors.md3.primary : Qt.alpha(Colors.md3.outline_variant, 0.5)
     border.width: 1
 
