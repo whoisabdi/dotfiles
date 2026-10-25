@@ -61,11 +61,10 @@ Rectangle {
                     }
                 }
 
-                Image {
-                    anchors.fill: parent
+                IconImage {
+                    anchors.centerIn: parent
+                    implicitSize: 20
                     source: modelData.icon || ""
-                    sourceSize: Qt.size(20, 20)
-                    fillMode: Image.PreserveAspectFit
                 }
             }
         }

@@ -42,6 +42,22 @@ Item {
         setBrightness(root.brightness + delta)
     }
 
+    IpcHandler {
+        target: "brightness"
+
+        function increment(delta: int): void {
+            root.adjust(delta || 5);
+        }
+
+        function decrement(delta: int): void {
+            root.adjust(-(delta || 5));
+        }
+
+        function set(val: int): void {
+            root.setBrightness(val);
+        }
+    }
+
     Timer {
         interval: 2500
         running: true

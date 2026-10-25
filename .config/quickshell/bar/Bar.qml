@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Wayland
+import Quickshell.Hyprland
 import "../globals"
 import "../ui"
 
@@ -12,15 +13,33 @@ PanelWindow {
     WlrLayershell.namespace: "bar"
     WlrLayershell.layer: WlrLayer.Top
 
+    readonly property HyprlandMonitor monitor: Hyprland.monitorFor(root.screen)
+    readonly property bool hasFullscreen: monitor?.activeWorkspace?.hasFullscreen ?? false
+
+    property real compactState: hasFullscreen ? 1 : 0
+    Behavior on compactState {
+        SmoothedAnimation { velocity: 8 }
+    }
+
     anchors { top: true; left: true; right: true }
     implicitHeight: 48
     color: "transparent"
-    exclusiveZone: implicitHeight
+    exclusiveZone: hasFullscreen ? 0 : implicitHeight
+
+    mask: Region {
+        width: root.width
+        height: root.exclusiveZone
+    }
 
     Rectangle {
+        id: contentArea
         anchors.fill: parent
-        anchors.margins: 6
+        anchors.leftMargin: 6
+        anchors.rightMargin: 6
+        anchors.bottomMargin: 6
+        anchors.topMargin: 6 - (root.implicitHeight + 12) * root.compactState
         color: "transparent"
+        opacity: 1 - root.compactState
 
         // 1. Center Section (Media Player)
         RowLayout {

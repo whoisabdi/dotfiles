@@ -4,7 +4,33 @@
 -- GLOBAL WINDOW FIXES
 -- =============================================================================
 -- Ignore maximize requests from applications (prevents misbehaved full-screen glitches)
-hl.window_rule({ match = { class = ".*" }, suppress_event = "maximize" })
+hl.window_rule({
+    name = "suppress-maximize-events",
+    match = { class = ".*" },
+    suppress_event = "maximize"
+})
+
+-- Fix empty XWayland drag surfaces stealing focus
+hl.window_rule({
+    name = "fix-xwayland-drags",
+    match = {
+        class = "^$",
+        title = "^$",
+        xwayland = true,
+        float = true,
+        fullscreen = false,
+        pin = false,
+    },
+    no_focus = true,
+})
+
+-- Monocle / maximized workspace rule
+hl.workspace_rule({
+    workspace = "f[1]",
+    gaps_out = 0,
+    border_size = 0,
+    no_rounding = true,
+})
 
 -- =============================================================================
 -- TAG ASSIGNMENTS
@@ -183,14 +209,16 @@ hl.window_rule({
 -- =============================================================================
 -- LAYER RULES
 -- =============================================================================
-hl.layer_rule({ match = { namespace = "quickshell" }})
-hl.layer_rule({ match = { namespace = "osd" }})
-hl.layer_rule({ match = { namespace = "bar" }, blur = true})
-hl.layer_rule({ match = { namespace = "launcher" }})
-hl.layer_rule({ match = { namespace = "notifications" }})
-hl.layer_rule({ match = { namespace = "wifipicker" }})
-hl.layer_rule({ match = { namespace = "btpicker" }})
-hl.layer_rule({ match = { namespace = "powermenu" }})
+hl.layer_rule({ name = "bar-blur", match = { namespace = "bar" }, blur = true, ignore_alpha = 0.41 })
+hl.layer_rule({ name = "launcher-blur", match = { namespace = "launcher" }, blur = true, ignore_alpha = 0.41 })
+hl.layer_rule({ name = "powermenu-blur", match = { namespace = "powermenu" }, blur = true, ignore_alpha = 0.41 })
+hl.layer_rule({ name = "qspanel-blur", match = { namespace = "qspanel" }, blur = true, ignore_alpha = 0.41 })
+hl.layer_rule({ name = "osd-blur", match = { namespace = "osd" }, blur = true, ignore_alpha = 0.41 })
+hl.layer_rule({ name = "wifipicker-blur", match = { namespace = "wifipicker" }, blur = true, ignore_alpha = 0.41 })
+hl.layer_rule({ name = "btpicker-blur", match = { namespace = "btpicker" }, blur = true, ignore_alpha = 0.41 })
+hl.layer_rule({ name = "settingsapp-blur", match = { namespace = "settingsapp" }, blur = true, ignore_alpha = 0.41 })
+hl.layer_rule({ name = "mediacenter-blur", match = { namespace = "mediacenter" }, blur = true, ignore_alpha = 0.41 })
+hl.layer_rule({ name = "notifications-blur", match = { namespace = "notifications" }, blur = true, ignore_alpha = 0.41, no_anim = true })
 
 
 
