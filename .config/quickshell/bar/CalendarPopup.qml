@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
@@ -252,6 +253,8 @@ PanelWindow {
                 Repeater {
                     model: window.dayLabels
                     delegate: Item {
+                        required property string modelData
+                        required property int index
                         Layout.fillWidth: true
                         implicitHeight: 22
                         QsText {
@@ -276,6 +279,7 @@ PanelWindow {
                     model: window.calendarDays
 
                     delegate: Item {
+                        required property var modelData
                         Layout.fillWidth: true
                         Layout.preferredHeight: 32
 

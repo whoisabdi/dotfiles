@@ -1,12 +1,15 @@
 import QtQuick
 import Quickshell.Io
+import Quickshell.Bluetooth
 
 Item {
     id: root
 
+    readonly property BluetoothAdapter btAdapter: Bluetooth.defaultAdapter
+    property bool btOn: btAdapter ? btAdapter.enabled : false
+    property bool btConnected: btAdapter ? btAdapter.devices.values.some(d => d.connected) : false
+
     property bool wifiOn: false
-    property bool btOn: false
-    property bool btConnected: false
     property int wifiSignal: 0
     property string currentSsid: "Checking..."
 
@@ -30,8 +33,6 @@ Item {
         running: true
         command: ["sh", "-c", "
             WIFI=$(if [ \"$(nmcli radio wifi 2>/dev/null)\" = 'enabled' ]; then echo '1'; else echo '0'; fi);
-            BT=$(if bluetoothctl show 2>/dev/null | grep -q 'Powered: yes'; then echo '1'; else echo '0'; fi);
-            BT_CONN=$(if bluetoothctl devices Connected 2>/dev/null | grep -q 'Device'; then echo '1'; else echo '0'; fi);
             if [ \"$WIFI\" = '1' ]; then
                 WIFI_LINE=$(nmcli -t -f active,signal,ssid dev wifi 2>/dev/null | grep '^yes' | head -n 1);
                 SIGNAL=$(echo \"$WIFI_LINE\" | cut -d: -f2);
@@ -41,17 +42,15 @@ Item {
                 SSID='Disconnected';
             fi;
             if [ -z \"$SSID\" ]; then SSID='Disconnected'; SIGNAL='0'; fi;
-            echo \"$WIFI|$BT|$SSID|$SIGNAL|$BT_CONN\"
+            echo \"$WIFI|$SSID|$SIGNAL\"
         "]
         stdout: StdioCollector {
             onStreamFinished: {
                 let res = text.replace(/\r/g, '').trim().split('|')
-                if (res.length >= 5) {
+                if (res.length >= 3) {
                     root.wifiOn = (res[0] === '1')
-                    root.btOn = (res[1] === '1')
-                    root.currentSsid = res[2]
-                    root.wifiSignal = parseInt(res[3]) || 0
-                    root.btConnected = (res[4] === '1')
+                    root.currentSsid = res[1]
+                    root.wifiSignal = parseInt(res[2]) || 0
                 }
             }
         }
@@ -60,12 +59,6 @@ Item {
     Process {
         id: wifiToggleProc
         command: ["sh", "-c", "if [ $(nmcli radio wifi) = 'enabled' ]; then nmcli radio wifi off; else nmcli radio wifi on; fi"]
-        onExited: refreshTimer.restart()
-    }
-
-    Process {
-        id: btToggleProc
-        command: ["sh", "-c", "if bluetoothctl show | grep -q 'Powered: yes'; then bluetoothctl power off; else bluetoothctl power on; fi"]
         onExited: refreshTimer.restart()
     }
 
@@ -82,8 +75,9 @@ Item {
     }
 
     function toggleBt() {
-        root.btOn = !root.btOn
-        btToggleProc.running = true
+        if (btAdapter) {
+            btAdapter.enabled = !btAdapter.enabled
+        }
     }
 
     function refresh() {

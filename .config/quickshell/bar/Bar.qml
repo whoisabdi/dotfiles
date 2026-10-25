@@ -28,8 +28,7 @@ PanelWindow {
     exclusiveZone: hasFullscreen ? 0 : implicitHeight
 
     mask: Region {
-        width: root.width
-        height: root.exclusiveZone
+        item: root.hasFullscreen ? null : contentArea
     }
 
     Rectangle {
